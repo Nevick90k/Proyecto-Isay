@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Vista</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #tickets-container {
+      width: 80%;
+      max-width: 600px;
+    }
+
+    .ticket-card {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .ticket-card h3 {
+      color: #007bff;
+    }
+
+    .ticket-card p {
+      margin-bottom: 15px;
+    }
+
+    .edit-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .delete-button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .details-button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .details-container {
+      display: none;
+      background-color: #f8f9fa;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .details-container p {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="tickets-container">
+    <!-- Aquí se mostrarán los tickets -->
+  </div>
+
+  <script>
+    function loadTickets() {
+      const ticketsData = [
+        { id: 1, title: "Ticket 1", description: "Descripción del Ticket 1" },
+        { id: 2, title: "Ticket 2", description: "Descripción del Ticket 2" },
+        // ... más tickets
+      ];
+
+      const ticketsContainer = document.getElementById("tickets-container");
+      ticketsContainer.innerHTML = "";
+      ticketsData.forEach(ticket => {
+        const ticketCard = document.createElement("div");
+        ticketCard.className = "ticket-card";
+        ticketCard.innerHTML = `
+          <h3>${ticket.title}</h3>
+          <p>${ticket.description}</p>
+          <button class="edit-button" onclick="editTicket(${ticket.id})">Editar</button>
+          <button class="delete-button" onclick="deleteTicket(${ticket.id})">Eliminar</button>
+          <button class="details-button" onclick="showDetails(${ticket.id})">Detalles</button>
+          <div class="details-container" id="details-container-${ticket.id}"></div>
+        `;
+        ticketsContainer.appendChild(ticketCard);
+      });
+    }
+
+    function deleteTicket(ticketId) {
+      console.log(`Eliminar ticket con ID ${ticketId}`);
+      loadTickets();
+    }
+
+    function editTicket(ticketId) {
+      console.log(`Editar ticket con ID ${ticketId}`);
+    }
+
+    function showDetails(ticketId) {
+      const detailsContainer = document.getElementById(`details-container-${ticketId}`);
+      const ticketData = { id: 1, title: "Ticket 1", description: "Descripción del Ticket 1", details: "Información adicional del ticket." };
+      
+      detailsContainer.innerHTML = `
+        <p><strong>ID:</strong> ${ticketData.id}</p>
+        <p><strong>Título:</strong> ${ticketData.title}</p>
+        <p><strong>Descripción:</strong> ${ticketData.description}</p>
+        <p><strong>Detalles:</strong> ${ticketData.details}</p>
+      `;
+
+      detailsContainer.style.display = "block";
+    }
+
+    window.onload = loadTickets;
+  </script>
+
+</body>
+</html>
